@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<metadata>
+  <groupId>org.springframework.social</groupId>
+  <artifactId>spring-social-linkedin</artifactId>
+  <versioning>
+    <release>1.0.2.CUSTOM</release>
+    <versions>
+      <version>1.0.2.CUSTOM</version>
+    </versions>
+    <lastUpdated>20190617063728</lastUpdated>
+  </versioning>
+</metadata>
