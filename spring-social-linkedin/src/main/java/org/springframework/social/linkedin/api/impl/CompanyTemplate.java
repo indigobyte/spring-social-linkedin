@@ -106,7 +106,7 @@ class CompanyTemplate extends AbstractTemplate implements CompanyOperations {
 		return restOperations.getForObject(PRODUCTS_URL, Products.class, companyId, start, count);
 	}
 	
-	public static final String BASE_URL = "https://api.linkedin.com/v1/";
+	public static final String BASE_URL = "https://api.linkedin.com/v2/";
 	public static final String COMPANY_FIELDS = "(id,name,universal-name,email-domains,company-type,ticker,website-url,industry,status,logo-url,square-logo-url,blog-rss-url,twitter-id,employee-count-range,specialties,locations,description,stock-exchange,founded-year,end-year,num-followers)";
 	public static final String COMPANY_URL = BASE_URL + "companies{id}:" + COMPANY_FIELDS + "?{filter}";
 	public static final String COMPANY_SEARCH_URL = BASE_URL + "company-search:(companies:" + COMPANY_FIELDS + ")?keywords={keywords}";

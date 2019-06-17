@@ -26,3 +26,16 @@ To build the JavaDoc, do the following from within the root directory:
 
 The result will be available in 'docs/build/api'.
 ===============================================================================
+To create maven artifact:
+ Create new empty directory maven-temp in the project root.
+ Checkout spring-social-linkedin into maven-temp.
+ Switch to branch mvn-repo. You should have directory structure like this:
+ c:\projects\spring-social-linkedin\maven-temp\spring-social-linkedin\org\springframework\social\spring-social-linkedin\1.0.2.CUSTOM\maven-metadata.xml
+ Go to root project dir (c:\projects\spring-social-linkedin).
+ run command
+ ./gradlew clean build publish -x test
+ Go back to maven-temp\spring-social-linkedin folder
+ c:\projects\spring-social-linkedin\maven-temp\spring-social-linkedin\org\springframework\social\spring-social-linkedin\
+ Commit and push mvn-repo branch.
+
+=============================================================================== 

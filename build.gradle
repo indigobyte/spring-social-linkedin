@@ -6,8 +6,8 @@ buildscript {
         classpath 'org.springframework.build.gradle:docbook-reference-plugin:0.2.8'
         classpath 'io.spring.gradle:spring-io-plugin:0.0.4.RELEASE'
         classpath 'me.champeau.gradle:gradle-javadoc-hotfix-plugin:0.1'
-        classpath('org.asciidoctor:asciidoctor-gradle-plugin:0.7.0')
-        classpath('org.asciidoctor:asciidoctor-java-integration:0.1.4.preview.1')
+        classpath('org.asciidoctor:asciidoctor-gradle-plugin:1.5.7')
+        classpath('org.asciidoctor:asciidoctor-java-integration:0.1.4')
     }
 }
 
@@ -24,8 +24,8 @@ configure(allprojects - docProjects) {
 
     group = 'org.springframework.social'
 
-    sourceCompatibility=1.5
-    targetCompatibility=1.5
+    sourceCompatibility=1.8
+    targetCompatibility=1.8
 
     [compileJava, compileTestJava]*.options*.compilerArgs = ['-Xlint:none']
 
@@ -110,6 +110,28 @@ configure(subprojects - docProjects) { subproject ->
         archives sourcesJar
         archives javadocJar
     }
+    
+    apply plugin: 'maven-publish'
+    publishing {
+        publications {
+            myPublication(MavenPublication) {
+                // telling gradle to publish project's jar archive
+                from components.java
+                artifact (javadocJar) { 
+                    classifier = 'javadoc'
+                }
+                artifact (sourcesJar) {
+                    classifier = 'sources'
+                }
+            }
+        }
+        // telling gradle to publish artifact to local directory (3)
+        repositories {
+            maven {
+                url "file:/${rootProject.projectDir}/maven-temp/spring-social-linkedin"
+            }
+        }
+    }
 }
 
 project('spring-social-linkedin') {
@@ -152,6 +174,7 @@ configure(rootProject) {
         options.header = rootProject.description
         options.overview = "src/api/overview.html"
         options.links(project.ext.javadocLinks)
+        options.source = 1.8
 
         source subprojects.collect { project ->
             project.sourceSets.main.allJava
@@ -179,10 +202,12 @@ configure(rootProject) {
             from(rootDir) {
                 include '*.txt'
             }
+            /*
             into('docs') {
                 with(project(':docs').apiSpec)
                 with(project(':docs:manual').spec)
             }
+            */
             into('dist') {
                 from coreModuleProjects.collect {project -> project.libsDir }
             }
@@ -191,21 +216,17 @@ configure(rootProject) {
 
     artifacts {
         archives dist
-        archives project(':docs').docsZip
-        archives project(':docs').schemaZip
+        //archives project(':docs').docsZip
+        //archives project(':docs').schemaZip
     }
 
-    task wrapper(type: Wrapper) {
-        description = 'Generates gradlew[.bat] scripts'
-        gradleVersion = '1.11'
-    }
 
 }
 
 configure(docProjects) {
     tasks.findByPath("artifactoryPublish")?.enabled = false
 }
-
+/*
 task updateRootDocs << {
     copy {
         from 'src/dist'
@@ -224,3 +245,4 @@ task updateRootDocs << {
 }
 
 build.dependsOn('updateRootDocs')
+*/

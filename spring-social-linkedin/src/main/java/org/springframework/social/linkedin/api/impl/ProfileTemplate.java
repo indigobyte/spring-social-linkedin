@@ -24,12 +24,7 @@ import java.net.URLEncoder;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
 import org.springframework.social.ApiException;
-import org.springframework.social.linkedin.api.LinkedInProfile;
-import org.springframework.social.linkedin.api.LinkedInProfileFull;
-import org.springframework.social.linkedin.api.LinkedInProfiles;
-import org.springframework.social.linkedin.api.ProfileField;
-import org.springframework.social.linkedin.api.ProfileOperations;
-import org.springframework.social.linkedin.api.SearchParameters;
+import org.springframework.social.linkedin.api.*;
 import org.springframework.social.support.URIBuilder;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestOperations;
@@ -120,13 +115,22 @@ class ProfileTemplate extends AbstractTemplate implements ProfileOperations {
 	}
 
 	private <T> T getUserProfile(String fields, Class<T> type) {
-		return restOperations.getForObject(URIBuilder.fromUri(BASE_URL + "~" + fields).build(), type);
+		return restOperations.getForObject(PERSONAL_PROFILE_URL, type);
 	}
 	
 	private <T> T getProfileFullById(String id, String fields, Class<T> type) {
 		return restOperations.getForObject(URIBuilder.fromUri(BASE_URL + "id=" + id + fields).build(), type);
 	}
-	
+
+	@Override
+	public String getEmail() {
+		LinkedInEmail email = restOperations.getForObject(GET_EMAIL_URL, LinkedInEmail.class);
+		return email.getElements().stream()
+				.findFirst()
+				.map(p -> p.getHandleObject().getEmailAddress())
+				.orElse(null);
+	}
+
 	private <T> T getProfileByPublicUrl(String url, String fields, Class<T> type) {
 		try {
 			URI uri = URIBuilder.fromUri(BASE_URL + "url=" + URLEncoder.encode(url, "UTF-8") + fields).build();
@@ -219,6 +223,6 @@ class ProfileTemplate extends AbstractTemplate implements ProfileOperations {
 	
 	static final String FULL_PROFILE_FIELDS;
 
-	static final String PEOPLE_SEARCH_URL = "https://api.linkedin.com/v1/people-search:(people:(id,first-name,last-name,headline,industry,site-standard-profile-request,public-profile-url,picture-url,summary,api-standard-profile-request))";
+	static final String PEOPLE_SEARCH_URL = "https://api.linkedin.com/v2/people-search:(people:(id,first-name,last-name,headline,industry,site-standard-profile-request,public-profile-url,picture-url,summary,api-standard-profile-request))";
 
 }

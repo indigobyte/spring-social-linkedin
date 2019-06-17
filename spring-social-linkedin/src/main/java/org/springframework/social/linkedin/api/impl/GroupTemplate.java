@@ -141,7 +141,7 @@ class GroupTemplate extends AbstractTemplate implements GroupOperations {
 		restOperations.delete(GROUP_SUGGESTION_DELETE_URL, groupId);
 	}
 	
-	public static final String BASE_URL = "https://api.linkedin.com/v1/";
+	public static final String BASE_URL = "https://api.linkedin.com/v2/";
 	public static final String BASE_PEOPLE_URL = BASE_URL + "people/";
 	public static final String GROUP_BASE_URL = BASE_URL + "groups/";
 	public static final String GROUP_POSTS_BASE_URL = BASE_URL + "posts/";

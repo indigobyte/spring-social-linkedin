@@ -15,6 +15,7 @@
  */
 package org.springframework.social.linkedin.api.impl.json;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.social.linkedin.api.ConnectionAuthorization;
 import org.springframework.social.linkedin.api.UrlResource;
 
@@ -28,15 +29,15 @@ abstract class LinkedInProfileMixin extends LinkedInObjectMixin {
 
 	@JsonCreator
 	LinkedInProfileMixin(
-		@JsonProperty("id") String id, 
-		@JsonProperty("firstName") String firstName, 
-		@JsonProperty("lastName") String lastName, 
-		@JsonProperty("headline") String headline, 
-		@JsonProperty("industry") String industry, 
-		@JsonProperty("publicProfileUrl") String publicProfileUrl, 
-		@JsonProperty("siteStandardProfileRequest") UrlResource siteStandardProfileRequest, 
+		@JsonProperty("id") String id,
+		@JsonProperty("localizedFirstName") String firstName,
+		@JsonProperty("localizedLastName") String lastName,
+		@JsonProperty("headline") String headline,
+		@JsonProperty("industry") String industry,
+		@JsonProperty("publicProfileUrl") String publicProfileUrl,
+		@JsonProperty("siteStandardProfileRequest") UrlResource siteStandardProfileRequest,
 		@JsonProperty("pictureUrl") String profilePictureUrl) {}
-	
+
 	@JsonProperty("summary")
 	String summary;
 
@@ -44,7 +45,12 @@ abstract class LinkedInProfileMixin extends LinkedInObjectMixin {
 	String emailAddress;
 
 	@JsonProperty("apiStandardProfileRequest")
-	@JsonDeserialize(using=ConnectionAuthorizationDeserializer.class) 
+	@JsonDeserialize(using=ConnectionAuthorizationDeserializer.class)
 	ConnectionAuthorization connectionAuthorization;
 
+	@JsonIgnore
+	public abstract String getFirstName();
+
+	@JsonIgnore
+	public abstract String getLastName();
 }

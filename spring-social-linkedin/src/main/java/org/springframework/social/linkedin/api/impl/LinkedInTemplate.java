@@ -179,7 +179,9 @@ public class LinkedInTemplate extends AbstractOAuth2ApiBinding implements Linked
 	
 	private static boolean interceptorsSupported = ClassUtils.isPresent("org.springframework.http.client.ClientHttpRequestInterceptor", LinkedInTemplate.class.getClassLoader());
 	
-	static final String BASE_URL = "https://api.linkedin.com/v1/people/";
+	static final String BASE_URL = "https://api.linkedin.com/v2/people/";
+	static final String PERSONAL_PROFILE_URL = "https://api.linkedin.com/v2/me";
+	static final String GET_EMAIL_URL = "https://api.linkedin.com/v2/emailAddress?q=members&projection=(elements*(handle~))";
 	
 	private static final class JsonFormatInterceptor implements ClientHttpRequestInterceptor {
 		public ClientHttpResponse intercept(HttpRequest request, byte[] body,

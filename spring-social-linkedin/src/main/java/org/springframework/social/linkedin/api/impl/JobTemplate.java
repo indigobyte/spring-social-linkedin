@@ -99,7 +99,7 @@ class JobTemplate extends AbstractTemplate implements JobOperations {
 		return restOperations.getForObject(expand(BOOKMARKS_URL, new Object[] {start,count}, false), JobBookmarks.class);		
 	}
 	
-	public static final String BASE_URL = "https://api.linkedin.com/v1/";
+	public static final String BASE_URL = "https://api.linkedin.com/v2/";
 	public static final String FIELDS = "(id,customer-job-code,active,posting-date,expiration-date,posting-timestamp,expiration-timestamp,company:(id,name),position:(title,location,job-functions,industries,job-type,experience-level),skills-and-experience,description-snippet,description,salary,job-poster:(id,first-name,last-name,headline),referral-bonus,site-job-url,location-description)";
 	public static final String SEARCH_FIELDS = "(jobs:" + FIELDS + ")";
 	public static final String SEARCH_URL = BASE_URL + "job-search:" + SEARCH_FIELDS + "?{&keywords}{&company-name}{&job-title}{&country-code}{&postal-code}{&distance}{&start}{&count}{&sort}";

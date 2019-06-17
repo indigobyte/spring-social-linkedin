@@ -78,6 +78,10 @@ import org.springframework.social.linkedin.api.UpdateContentShare;
 import org.springframework.social.linkedin.api.UpdateContentStatus;
 import org.springframework.social.linkedin.api.UpdateContentViral;
 import org.springframework.social.linkedin.api.UrlResource;
+import org.springframework.social.linkedin.api.LinkedInEmail;
+import org.springframework.social.linkedin.api.LinkedInEmailElement;
+import org.springframework.social.linkedin.api.LinkedInEmailElementHandleObject;
+
 
 import com.fasterxml.jackson.databind.module.SimpleModule;
 
@@ -159,6 +163,9 @@ public class LinkedInModule extends SimpleModule {
 		context.setMixInAnnotations(GroupSuggestions.class, GroupSuggestionsMixin.class);
 		context.setMixInAnnotations(GroupMemberships.class, GroupMembershipsMixin.class);
 		context.setMixInAnnotations(GroupSettings.class, GroupSettingsMixin.class);
+		context.setMixInAnnotations(LinkedInEmail.class, LinkedInEmailMixin.class);
+		context.setMixInAnnotations(LinkedInEmailElement.class, LinkedInEmailElementMixin.class);
+		context.setMixInAnnotations(LinkedInEmailElementHandleObject.class, LinkedInEmailElementHandleObjectMixin.class);
 	}
 
 }

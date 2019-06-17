@@ -50,6 +50,8 @@ public interface ProfileOperations {
 	 * @return the user's profile data.
 	 */
 	LinkedInProfile getProfileById(String id);
+
+	String getEmail();
 	
 	/**
 	 * Retrieves a profile by public url.
